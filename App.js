@@ -3,8 +3,8 @@ import { StyleSheet, Text, View, Button, StatusBar } from 'react-native';
 import { DeviceMotion } from 'expo-sensors';
 
 export default function App() {
-  const [rotation, setRotation] = React.useState({});  
-  const [rotationRate, setRotationRate] = React.useState({});  
+  const [rotation, setRotation] = React.useState({ "gamma": 0, "alpha": 0, "beta": 0 });  
+  const [rotationRate, setRotationRate] = React.useState({ "gamma": 0, "alpha": 0, "beta": 0 });  
   const [counter, setCounter] = React.useState(0);  
   
   React.useEffect(() => {
