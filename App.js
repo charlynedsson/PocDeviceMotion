@@ -23,10 +23,10 @@ export default function App() {
   const _subscribe = () => {
     //Adding the Listener
     DeviceMotion.addListener((devicemotionData) => {      
-      const rotation = devicemotionData.rotation ?? { "gamma": 0, "alpha": 0, "beta": 0 };
-      const rotationRate = devicemotionData.rotationRate ?? { "gamma": 0, "alpha": 0, "beta": 0 };
-      setRotation(rotation);
-      setRotationRate(rotationRate);
+      let tempRotation = devicemotionData.rotation ?? { "gamma": 0, "alpha": 0, "beta": 0 };
+      let tempRotationRate = devicemotionData.rotationRate ?? { "gamma": 0, "alpha": 0, "beta": 0 };
+      setRotation(tempRotation);
+      setRotationRate(tempRotationRate);
     });
     //Calling setInterval Function after adding the listener
     _setInterval();
@@ -36,16 +36,14 @@ export default function App() {
     //Removing all the listeners at end of screen unload
     DeviceMotion.removeAllListeners();
   };
+    
+  let rotationGamma = round(rotation.gamma);
+  let rotationAlpha = round(rotation.aplha);
+  let rotationBeta = round(rotation.beta);
   
-  let { rotationGamma, rotationAlpha, rotationBeta } = rotation;
-  rotationGamma = round(rotationGamma);
-  rotationAlpha = round(rotationAlpha);
-  rotationBeta = round(rotationBeta);
-
-  let { rotationRateGamma, rotationRateAlpha, rotationRateBeta } = rotationRate;
-  rotationRateGamma = Math.round(rotationRateGamma);
-  rotationRateAlpha = Math.round(rotationRateAlpha);
-  rotationRateBeta = Math.round(rotationRateBeta);
+  let rotationRateGamma = Math.round(rotationRate.gamma);
+  let rotationRateAlpha = Math.round(rotationRate.alpha);
+  let rotationRateBeta = Math.round(rotationRate.beta);
   
   return (
       <>           
