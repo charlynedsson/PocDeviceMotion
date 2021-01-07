@@ -39,7 +39,7 @@ export default function App() {
         <StatusBar hidden = {true}/>        
         <View style={styles.container}>      
           <Text style={styles.dataText}>{selectedDataType}</Text>
-          <Text style={styles.dataText}>{data}</Text>
+          <Text style={styles.dataText}>{JSON.stringify(data)}</Text>
         </View>
         <View style={styles.row}>
           <Button onPress={() => setSelectedDataType("rotation")} title="rotation"/>
