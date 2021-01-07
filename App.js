@@ -3,16 +3,39 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import { DeviceMotion } from 'expo-sensors';
 
 export default function App() {
-  const [name, setName] = React.useState("There");
+  const [data, setData] = useState({});
   
-  const _handleOnPress = function () {
-    name === "There" ? setName("Again") : setName("There");    
-  }
+  useEffect(() => {
+    //Subscribe Function
+    _subscribe();
+    //Call Once when Screen unloads
+    return () => {
+      _unsubscribe(); //Unsubscribe Function
+    };
+  }, []);
+  
+  //SetInterval between listening of 2 DeviceMotion Action
+  const _setInterval = () => {
+    DeviceMotion.setUpdateInterval(77);
+  };
+
+  const _subscribe = () => {
+    //Adding the Listener
+    DeviceMotion.addListener((devicemotionData) => {
+      setData(devicemotionData.rotation);
+    });
+    //Calling setInterval Function after adding the listener
+    _setInterval();
+  };
+
+  const _unsubscribe = () => {
+    //Removing all the listeners at end of screen unload
+    DeviceMotion.removeAllListeners();
+  };
   
   return (
       <View style={styles.container}>
-        <Text style={styles.nameText}>Hello {name}</Text>
-        <Button color='#4169E1' onPress={() => {_handleOnPress()}} title='Click me'> </Button>
+        <Text style={styles.nameText}>{JSON.stringify(data)}</Text>
       </View>
     ); 
 }
