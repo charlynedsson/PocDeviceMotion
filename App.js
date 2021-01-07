@@ -5,6 +5,7 @@ import { DeviceMotion } from 'expo-sensors';
 export default function App() {
   const [rotation, setRotation] = React.useState({});  
   const [rotationRate, setRotationRate] = React.useState({});  
+  const [counter, setCounter] = React.useState(0);  
   
   React.useEffect(() => {
     //Subscribe Function
@@ -14,6 +15,14 @@ export default function App() {
       _unsubscribe(); //Unsubscribe Function
     };
   }, []);
+  
+  React.useEffect(() => {
+    if(rotationRate.beta >= 50 && rotation.gamma >=  2) {
+       setCounter(counter + 1);
+    } else if (rotationRate.beta <= -50 && rotation.gamma <=  0.75) {
+      setCounter(counter - 1);
+    }
+  }, [rotationRate]);
   
   //SetInterval between listening of 2 DeviceMotion Action
   const _setInterval = () => {
@@ -38,7 +47,7 @@ export default function App() {
   };
     
   let rotationGamma = round(rotation.gamma);
-  let rotationAlpha = round(rotation.aplha);
+  let rotationAlpha = round(rotation.alpha);
   let rotationBeta = round(rotation.beta);
   
   let rotationRateGamma = Math.round(rotationRate.gamma);
@@ -49,10 +58,11 @@ export default function App() {
       <>           
         <View style={styles.container}>      
           <Text style={styles.dataLabel}>rotation</Text>          
-          <Text style={styles.dataText}>g:{rotationGamma} a:{rotationAlpha} b:{rotationBeta}</Text>
-    
+          <Text style={styles.dataText}>g:{rotationGamma} a:{rotationAlpha} b:{rotationBeta}</Text>    
           <Text style={styles.dataLabel}>rotationRate</Text>          
           <Text style={styles.dataText}>g:{rotationRateGamma} a:{rotationRateAlpha} b:{rotationRateBeta}</Text>
+          <Text style={styles.dataLabel}>counter</Text>          
+          <Text style={styles.dataText}>{counter}</Text>
         </View>
       </>
     ); 
