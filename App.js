@@ -33,6 +33,10 @@ export default function App() {
     DeviceMotion.removeAllListeners();
   };
   
+  let { beta, gamma } = data;
+  gamma = round(gamma);
+  beta = round(beta);
+  
   return (
       <>           
         <View style={styles.container}>      
@@ -41,6 +45,14 @@ export default function App() {
         </View>
       </>
     ); 
+}
+
+function round(n) {
+  if (!n) {
+    return 0;
+  }
+
+  return Math.floor(n * 100) / 100;
 }
 
 const styles = StyleSheet.create({
