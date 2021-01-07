@@ -3,9 +3,9 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import { DeviceMotion } from 'expo-sensors';
 
 export default function App() {
-  const [data, setData] = useState({});
+  const [data, setData] = React.useState({});
   
-  useEffect(() => {
+  React.useEffect(() => {
     //Subscribe Function
     _subscribe();
     //Call Once when Screen unloads
