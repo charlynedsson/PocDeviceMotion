@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Button, StatusBar } from 'react-native';
 import { DeviceMotion } from 'expo-sensors';
 
 export default function App() {
-  const [data, setData] = React.useState({ gamma: 0, alpha: 0, beta: 0 });  
+  const [data, setData] = React.useState({});  
   
   React.useEffect(() => {
     //Subscribe Function
@@ -32,10 +32,6 @@ export default function App() {
     //Removing all the listeners at end of screen unload
     DeviceMotion.removeAllListeners();
   };
-  
-  let { beta, gamma } = data;
-  gamma = round(gamma);
-  beta = round(beta);
   
   return (
       <>           
