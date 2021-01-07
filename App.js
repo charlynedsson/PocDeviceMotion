@@ -22,7 +22,7 @@ export default function App() {
   const _subscribe = () => {
     //Adding the Listener
     DeviceMotion.addListener((devicemotionData) => {      
-      setData(devicemotionData);
+      setData(devicemotionData.rotation);
     });
     //Calling setInterval Function after adding the listener
     _setInterval();
@@ -33,7 +33,7 @@ export default function App() {
     DeviceMotion.removeAllListeners();
   };
   
-  let { alpha, beta, gamma } = data.rotation;
+  let { alpha, beta, gamma } = data;
   gamma = round(gamma);
   beta = round(beta);
   alpha = round(alpha);
@@ -42,12 +42,8 @@ export default function App() {
       <>
         <StatusBar hidden = {true}/>        
         <View style={styles.container}>      
-          <Text style={styles.dataLabel}>rotation</Text>
-          <Text style={styles.dataText}>{alpha} {beta} {gamma}</Text>
-          <Text style={styles.dataLabel}>rotationRate</Text>
-          <Text style={styles.dataText}>{JSON.stringify(data.rotation)}</Text>
-          <Text style={styles.dataLabel}>acceleration</Text>
-          <Text style={styles.dataText}>{JSON.stringify(data.acceleration)}</Text>
+          <Text style={styles.dataLabel}>rotation</Text>          
+          <Text style={styles.dataText}>{JSON.stringify(data)}</Text>
         </View>
       </>
     ); 
