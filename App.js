@@ -5,6 +5,7 @@ import { DeviceMotion } from 'expo-sensors';
 export default function App() {
   const [rotation, setRotation] = React.useState({ "gamma": 0, "alpha": 0, "beta": 0 });  
   const [rotationRate, setRotationRate] = React.useState({ "gamma": 0, "alpha": 0, "beta": 0 });  
+  const [orientation, setOrientation] = React.useState(0);  
   const [counter, setCounter] = React.useState(0);
   const [status, setStatus] = React.useState(0);
   
@@ -18,14 +19,10 @@ export default function App() {
   }, []);
   
   React.useEffect(() => {
-    if(rotationRate.beta >= 100 && rotation.gamma >=  2.355) {       
-       setCounter(counter + 1);
-       setStatus(1);
-       setTimeout(function(){ setStatus(0); }, 500);
-    } else if (rotationRate.beta <= -100 && rotation.gamma <=  0.785) {       
-       setCounter(counter - 1);      
-       setStatus(2);
-       setTimeout(function(){ setStatus(0); }, 500);
+    if(rotationRate.beta >= 100 && rotation.gamma >=  2.355 < 3.14) {       
+       _handleTilt(1,1);
+    } else if (rotationRate.beta <= -100 && rotation.gamma <=  0.785 > 0) {       
+       _handleTilt(-1,2);
     }
   }, [rotationRate]);
   
@@ -37,10 +34,9 @@ export default function App() {
   const _subscribe = () => {
     //Adding the Listener
     DeviceMotion.addListener((devicemotionData) => {      
-      let rotation = devicemotionData.rotation ?? { "gamma": 0, "alpha": 0, "beta": 0 };
-      let rotationRate = devicemotionData.rotationRate ?? { "gamma": 0, "alpha": 0, "beta": 0 };
-      setRotation(rotation);
-      setRotationRate(rotationRate);
+      setRotation(devicemotionData.rotation ?? { "gamma": 0, "alpha": 0, "beta": 0 });
+      setRotationRate(devicemotionData.rotationRate ?? { "gamma": 0, "alpha": 0, "beta": 0 });            
+      setOrientation(devicemotionData.orientation ?? 0);
     });
     //Calling setInterval Function after adding the listener
     _setInterval();
@@ -50,6 +46,12 @@ export default function App() {
     //Removing all the listeners at end of screen unload
     DeviceMotion.removeAllListeners();
   };
+  
+  const _handleTilt = (result, statusCode) => {
+    setCounter(counter + result);  
+    setStatus(statusCode);
+    setTimeout(function(){ setStatus(0); }, 500);
+  }
 
   const backGroundColorSelector = (state) => {
     if(state == 1)
@@ -67,21 +69,33 @@ export default function App() {
   let rotationRateGamma = Math.round(rotationRate.gamma);
   let rotationRateAlpha = Math.round(rotationRate.alpha);
   let rotationRateBeta = Math.round(rotationRate.beta);
-
-  return (
-      <>           
-        <View style={[styles.container, backGroundColorSelector(status)]}>
-          <Text style={styles.dataLabel}>counter</Text>       
-          <Text style={styles.dataText}>{counter}</Text>
-          <Text style={styles.dataLabel}>status</Text>
-          <Text style={styles.dataText}>{status}</Text>
-          <Text style={styles.dataLabel}>rotation</Text>          
-          <Text style={styles.dataText}>g:{rotationGamma} a:{rotationAlpha} b:{rotationBeta}</Text>    
-          <Text style={styles.dataLabel}>rotationRate</Text>          
-          <Text style={styles.dataText}>g:{rotationRateGamma} a:{rotationRateAlpha} b:{rotationRateBeta}</Text>          
-        </View>
-      </>
-    ); 
+  
+  if(rotation.gamma < 0) {
+    return (
+        <>          
+          <View style={[styles.container, backGroundColorSelector(0)]}>
+            <Text style={styles.dataLabel}>Return device</Text>
+          </View>
+        </>
+      );
+  }
+  else {
+    return (
+        <>          
+          <StatusBar hide />
+          <View style={[styles.container, backGroundColorSelector(status)]}>
+            <Text style={styles.dataLabel}>counter</Text>       
+            <Text style={styles.dataText}>{counter}</Text>
+            <Text style={styles.dataLabel}>orientation</Text>       
+            <Text style={styles.dataText}>{orientation}</Text>
+            <Text style={styles.dataLabel}>rotation</Text>          
+            <Text style={styles.dataText}>g:{rotationGamma} a:{rotationAlpha} b:{rotationBeta}</Text>    
+            <Text style={styles.dataLabel}>rotationRate</Text>          
+            <Text style={styles.dataText}>g:{rotationRateGamma} a:{rotationRateAlpha} b:{rotationRateBeta}</Text>          
+          </View>
+        </>
+      );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -90,17 +104,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  row :{
-    flexDirection:'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   dataLabel: {
-    fontSize: 21,
+    fontSize: 16,
     opacity: 0.6,
   },
   dataText: {
-    fontSize: 21,
+    fontSize: 20,
     padding: 15,
   }
 });
