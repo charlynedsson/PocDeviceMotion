@@ -6,10 +6,13 @@ export default function App() {
   const [data, setData] = React.useState({});
   const [selectedDataType, setSelectedDataType] = React.useState("rotation");
   
-  React.useEffect(() => {    
+  React.useEffect(() => {
+    //Subscribe Function
     _subscribe();
-    
-    return _unsubscribe();
+    //Call Once when Screen unloads
+    return () => {
+      _unsubscribe(); //Unsubscribe Function
+    };
   }, []);
   
   //SetInterval between listening of 2 DeviceMotion Action
@@ -36,7 +39,7 @@ export default function App() {
         <StatusBar hidden = {true}/>        
         <View style={styles.container}>      
           <Text style={styles.dataText}>{selectedDataType}</Text>
-          <Text style={styles.dataText}>{JSON.stringify(data)}</Text>
+          <Text style={styles.dataText}>{data}</Text>
         </View>
         <View style={styles.row}>
           <Button onPress={() => setSelectedDataType("rotation")} title="rotation"/>
