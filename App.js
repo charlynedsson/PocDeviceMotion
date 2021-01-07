@@ -18,14 +18,10 @@ export default function App() {
   }, []);
   
   React.useEffect(() => {
-    if(rotationRate.beta >= 100 && rotation.gamma >=  2.355 && !isUpdating) {
-       setIsUpdating(true);
-       setCounter(counter + 1);
-       setIsUpdating(false);
-    } else if (rotationRate.beta <= -100 && rotation.gamma <=  0.785 && !isUpdating) {
-       setIsUpdating(true);
-       setCounter(counter - 1);
-       setIsUpdating(false);
+    if(rotationRate.beta >= 100 && rotation.gamma >=  2.355) {       
+       setCounter(counter + 1);       
+    } else if (rotationRate.beta <= -100 && rotation.gamma <=  0.785) {       
+       setCounter(counter - 1);       
     }
   }, [rotationRate]);
   
