@@ -33,11 +33,6 @@ export default function App() {
     DeviceMotion.removeAllListeners();
   };
   
-  let { alpha, beta, gamma } = data;  
-  alpha = Math.round(alpha);
-  beta = Math.round(beta);
-  gamma = Math.round(gamma);
-  
   return (
       <>           
         <View style={styles.container}>      
