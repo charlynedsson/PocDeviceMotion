@@ -3,7 +3,8 @@ import { StyleSheet, Text, View, Button, StatusBar } from 'react-native';
 import { DeviceMotion } from 'expo-sensors';
 
 export default function App() {
-  const [data, setData] = React.useState({});  
+  const [rotation, setRotation] = React.useState({});  
+  const [rotationRate, setRotationRate] = React.useState({});  
   
   React.useEffect(() => {
     //Subscribe Function
@@ -22,8 +23,10 @@ export default function App() {
   const _subscribe = () => {
     //Adding the Listener
     DeviceMotion.addListener((devicemotionData) => {      
-      const res = devicemotionData.rotationRate ?? { "gamma": 0, "alpha": 0, "beta": 0 };
-      setData(res);
+      const rotation = devicemotionData.rotation ?? { "gamma": 0, "alpha": 0, "beta": 0 };
+      const rotationRate = devicemotionData.rotationRate ?? { "gamma": 0, "alpha": 0, "beta": 0 };
+      setRotation(rotation);
+      setRotationRate(rotationRate);
     });
     //Calling setInterval Function after adding the listener
     _setInterval();
@@ -34,16 +37,24 @@ export default function App() {
     DeviceMotion.removeAllListeners();
   };
   
-  let { gamma, alpha, beta } = data;
-  gamma = round(gamma);
-  alpha = round(alpha);
-  beta = round(beta);
+  let { rotationGamma, rotationAlpha, rotationBeta } = rotation;
+  rotationGamma = round(rotationGamma);
+  rotationAlpha = round(rotationAlpha);
+  rotationBeta = round(rotationBeta);
+
+  let { rotationRateGamma, rotationRateAlpha, rotationRateBeta } = rotationRate;
+  rotationRateGamma = Math.round(rotationRateGamma);
+  rotationRateAlpha = Math.round(rotationRateAlpha);
+  rotationRateBeta = Math.round(rotationRateBeta);
   
   return (
       <>           
         <View style={styles.container}>      
           <Text style={styles.dataLabel}>rotation</Text>          
-          <Text style={styles.dataText}>g:{gamma} a:{alpha} b:{beta}</Text>
+          <Text style={styles.dataText}>g:{rotationGamma} a:{rotationAlpha} b:{rotationBeta}</Text>
+    
+          <Text style={styles.dataLabel}>rotationRate</Text>          
+          <Text style={styles.dataText}>g:{rotationRateGamma} a:{rotationRateAlpha} b:{rotationRateBeta}</Text>
         </View>
       </>
     ); 
