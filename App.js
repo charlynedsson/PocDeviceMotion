@@ -4,7 +4,7 @@ import { DeviceMotion } from 'expo-sensors';
 
 export default function App() {
   const [data, setData] = React.useState(null);
-  const [selectedDataType, setSelectedDataType] = React.useState("orientation");
+  const [selectedDataType, setSelectedDataType] = React.useState("rotation");
   
   React.useEffect(() => {
     _unsubscribe();
