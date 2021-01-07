@@ -33,6 +33,11 @@ export default function App() {
     DeviceMotion.removeAllListeners();
   };
   
+  let { alpha, beta, gamma } = data.rotationRate;
+  gamma = round(gamma);
+  beta = round(beta);
+  alpha = round(alpha);
+  
   return (
       <>
         <StatusBar hidden = {true}/>        
@@ -40,7 +45,7 @@ export default function App() {
           <Text style={styles.dataLabel}>rotation</Text>
           <Text style={styles.dataText}>{JSON.stringify(data.rotation)}</Text>
           <Text style={styles.dataLabel}>rotationRate</Text>
-          <Text style={styles.dataText}>{JSON.stringify(data.rotationRate)}</Text>
+          <Text style={styles.dataText}>{alpha} {beta} {gamma}</Text>
           <Text style={styles.dataLabel}>acceleration</Text>
           <Text style={styles.dataText}>{JSON.stringify(data.acceleration)}</Text>
         </View>
