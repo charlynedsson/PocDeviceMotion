@@ -33,14 +33,13 @@ export default function App() {
     DeviceMotion.removeAllListeners();
   };
   
-  let { alpha, beta, gamma } = data;
-  gamma = round(gamma);
-  beta = round(beta);
-  alpha = round(alpha);
+  let { alpha, beta, gamma } = data;  
+  alpha = Math.round(alpha);
+  beta = Math.round(beta);
+  gamma = Math.round(gamma);
   
   return (
-      <>
-        <StatusBar hidden = {true}/>        
+      <>           
         <View style={styles.container}>      
           <Text style={styles.dataLabel}>rotation</Text>          
           <Text style={styles.dataText}>{JSON.stringify(data)}</Text>
