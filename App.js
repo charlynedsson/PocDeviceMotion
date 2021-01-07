@@ -40,9 +40,9 @@ export default function App() {
           <Text style={styles.dataLabel}>rotation</Text>
           <Text style={styles.dataText}>{JSON.stringify(data.rotation)}</Text>
           <Text style={styles.dataLabel}>rotationRate</Text>
-          <Text style={styles.dataText}>{data.rotationRate.gamma}</Text>
-          <Text style={styles.dataLabel}>orientation</Text>
-          <Text style={styles.dataText}>{data.orientation}</Text>
+          <Text style={styles.dataText}>{JSON.stringify(data.rotationRate)</Text>
+          <Text style={styles.dataLabel}>acceleration</Text>
+          <Text style={styles.dataText}>{JSON.stringify(data.acceleration)}</Text>
         </View>
       </>
     ); 
