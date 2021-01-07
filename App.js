@@ -32,10 +32,10 @@ export default function App() {
   const _subscribe = () => {
     //Adding the Listener
     DeviceMotion.addListener((devicemotionData) => {      
-      let tempRotation = devicemotionData.rotation ?? { "gamma": 0, "alpha": 0, "beta": 0 };
-      let tempRotationRate = devicemotionData.rotationRate ?? { "gamma": 0, "alpha": 0, "beta": 0 };
-      setRotation(tempRotation);
-      setRotationRate(tempRotationRate);
+      let rotation = devicemotionData.rotation ?? { "gamma": 0, "alpha": 0, "beta": 0 };
+      let rotationRate = devicemotionData.rotationRate ?? { "gamma": 0, "alpha": 0, "beta": 0 };
+      setRotation(rotation);
+      setRotationRate(rotationRate);
     });
     //Calling setInterval Function after adding the listener
     _setInterval();
@@ -46,10 +46,23 @@ export default function App() {
     DeviceMotion.removeAllListeners();
   };
   
+  let rotationGamma = rotation.gamma.toPrecision(4);
+  let rotationAlpha = rotation.alpha.toPrecision(4);
+  let rotationBeta = rotation.beta.toPrecision(4);
+
+  let rotationRateGamma = Math.round(rotationRate.gamma);
+  let rotationRateAlpha = Math.round(rotationRate.alpha);
+  let rotationRateBeta = Math.round(rotationRate.beta);
+
   return (
       <>           
         <View style={styles.container}>
           <Text style={styles.dataLabel}>counter</Text>          
+          <Text style={styles.dataText}>{counter}</Text>
+          <Text style={styles.dataLabel}>rotation</Text>          
+          <Text style={styles.dataText}>g:{rotationGamma} a:{rotationAlpha} b:{rotationBeta}</Text>    
+          <Text style={styles.dataLabel}>rotationRate</Text>          
+          <Text style={styles.dataText}>g:{rotationRateGamma} a:{rotationRateAlpha} b:{rotationRateBeta}</Text>          
           <Text style={styles.dataText}>{counter}</Text>      
         </View>
       </>
