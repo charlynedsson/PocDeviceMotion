@@ -19,9 +19,9 @@ export default function App() {
   }, []);
   
   React.useEffect(() => {
-    if(rotationRate.beta >= 100 && rotation.gamma >=  2.355 && rotation.gamma < 3.14) {       
+    if(rotationRate.beta >= 100 && rotation.gamma <= -2.355 && rotation.gamma > -3) {       
        _handleTilt(1,1);
-    } else if (rotationRate.beta <= -100 && rotation.gamma <=  0.785 && rotation.gamma > 0) {       
+    } else if (rotationRate.beta <= -100 && rotation.gamma <=  -0.785 && rotation.gamma > 0) {       
        _handleTilt(-1,2);
     }
   }, [rotationRate]);
