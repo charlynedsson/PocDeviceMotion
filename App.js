@@ -23,7 +23,7 @@ export default function App() {
   const _subscribe = () => {
     //Adding the Listener
     DeviceMotion.addListener((devicemotionData) => {      
-      setData(devicemotionData[selectedDataType]);
+      setData(devicemotionData);
     });
     //Calling setInterval Function after adding the listener
     _setInterval();
@@ -38,13 +38,12 @@ export default function App() {
       <>
         <StatusBar hidden = {true}/>        
         <View style={styles.container}>      
-          <Text style={styles.dataText}>{selectedDataType}</Text>
-          <Text style={styles.dataText}>{JSON.stringify(data)}</Text>
-        </View>
-        <View style={styles.row}>
-          <Button onPress={() => setSelectedDataType("rotation")} title="rotation"/>
-          <Button onPress={() => setSelectedDataType("rotationRate")} title="rotationRate"/>
-          <Button onPress={() => setSelectedDataType("orientation")} title="orientation"/>
+          <Text style={styles.dataLabel}>rotation</Text>
+          <Text style={styles.dataText}>{JSON.stringify(data.rotation)}</Text>
+          <Text style={styles.dataLabel}>rotationRate</Text>
+          <Text style={styles.dataText}>{JSON.stringify(data.rotationRate)}</Text>
+          <Text style={styles.dataLabel}>orientation</Text>
+          <Text style={styles.dataText}>{data.orientation}</Text>
         </View>
       </>
     ); 
@@ -61,6 +60,10 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  dataLabel: {
+    fontSize: 21,
+    opacity: 0.6,
   },
   dataText: {
     fontSize: 21,
