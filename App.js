@@ -19,9 +19,9 @@ export default function App() {
   }, []);
   
   React.useEffect(() => {
-    if(rotationRate.beta >= 100 && rotation.gamma >=  2.355 < 3.14) {       
+    if(rotationRate.beta >= 100 && rotation.gamma >=  2.355 && rotation.gamma < 3.14) {       
        _handleTilt(1,1);
-    } else if (rotationRate.beta <= -100 && rotation.gamma <=  0.785 > 0) {       
+    } else if (rotationRate.beta <= -100 && rotation.gamma <=  0.785 && rotation.gamma > 0) {       
        _handleTilt(-1,2);
     }
   }, [rotationRate]);
@@ -70,11 +70,11 @@ export default function App() {
   let rotationRateAlpha = Math.round(rotationRate.alpha);
   let rotationRateBeta = Math.round(rotationRate.beta);
   
-  if(rotation.gamma < 0) {
+  if(orientation != 90) {
     return (
         <>          
           <View style={[styles.container, backGroundColorSelector(0)]}>
-            <Text style={styles.dataLabel}>Return device</Text>
+            <Text style={styles.dataLabel}>Tilt device</Text>
           </View>
         </>
       );
@@ -85,9 +85,7 @@ export default function App() {
           <StatusBar hide />
           <View style={[styles.container, backGroundColorSelector(status)]}>
             <Text style={styles.dataLabel}>counter</Text>       
-            <Text style={styles.dataText}>{counter}</Text>
-            <Text style={styles.dataLabel}>orientation</Text>       
-            <Text style={styles.dataText}>{orientation}</Text>
+            <Text style={styles.dataText}>{counter}</Text>            
             <Text style={styles.dataLabel}>rotation</Text>          
             <Text style={styles.dataText}>g:{rotationGamma} a:{rotationAlpha} b:{rotationBeta}</Text>    
             <Text style={styles.dataLabel}>rotationRate</Text>          
