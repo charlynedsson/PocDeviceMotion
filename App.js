@@ -4,7 +4,7 @@ import { DeviceMotion } from 'expo-sensors';
 
 export default function App() {
   const [data, setData] = React.useState({});
-  const [selectedDataType, setSelectedDataType] = React.useState("rotation");
+  const [selectedDataType, setSelectedDataType] = React.useState("orientation");
   
   React.useEffect(() => {
     //Subscribe Function
@@ -35,14 +35,17 @@ export default function App() {
   };
   
   return (
-      <View style={styles.container}>
+      <>
         <View syle={styles.row}>
           <Button onPress={() => setSelectedDataType("rotation")} title="rotation"/>
           <Button onPress={() => setSelectedDataType("rotationRate")} title="rotationRate"/>
           <Button onPress={() => setSelectedDataType("orientation")} title="orientation"/>
         </View>
-        <Text style={styles.dataText}>{JSON.stringify(data)}</Text>
-      </View>
+        <View style={styles.container}>      
+          <Text style={styles.dataText}>{selectedDataType}</Text>
+          <Text style={styles.dataText}>{JSON.stringify(data)}</Text>
+        </View>
+      </>
     ); 
 }
 
