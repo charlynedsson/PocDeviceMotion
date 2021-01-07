@@ -5,7 +5,8 @@ import { DeviceMotion } from 'expo-sensors';
 export default function App() {
   const [rotation, setRotation] = React.useState({ "gamma": 0, "alpha": 0, "beta": 0 });  
   const [rotationRate, setRotationRate] = React.useState({ "gamma": 0, "alpha": 0, "beta": 0 });  
-  const [counter, setCounter] = React.useState(0);  
+  const [counter, setCounter] = React.useState(0);
+  const [status, setStatus] = React.useState(0);
   
   React.useEffect(() => {
     //Subscribe Function
@@ -18,9 +19,13 @@ export default function App() {
   
   React.useEffect(() => {
     if(rotationRate.beta >= 100 && rotation.gamma >=  2.355) {       
-       setCounter(counter + 1);       
+       setCounter(counter + 1);
+       setStatus(1);
+       setTimeout(function(){ setStatus(0); }, 500);
     } else if (rotationRate.beta <= -100 && rotation.gamma <=  0.785) {       
-       setCounter(counter - 1);       
+       setCounter(counter - 1);      
+       setStatus(2);
+       setTimeout(function(){ setStatus(0); }, 500);
     }
   }, [rotationRate]);
   
@@ -45,6 +50,15 @@ export default function App() {
     //Removing all the listeners at end of screen unload
     DeviceMotion.removeAllListeners();
   };
+
+  const backGroundColorSelector = (state) => {
+    if(state == 1)
+      return { backgroundColor: 'green'}    
+    else if (state == 2)
+      return { backgroundColor: 'red'}
+    else
+      return { backgroundColor: 'white'}
+  };
   
   let rotationGamma = rotation.gamma.toPrecision(4);
   let rotationAlpha = rotation.alpha.toPrecision(4);
@@ -56,31 +70,23 @@ export default function App() {
 
   return (
       <>           
-        <View style={styles.container}>
-          <Text style={styles.dataLabel}>counter</Text>          
+        <View style={[styles.container, backGroundColorSelector(status)]}>
+          <Text style={styles.dataLabel}>counter</Text>       
           <Text style={styles.dataText}>{counter}</Text>
+          <Text style={styles.dataLabel}>status</Text>
+          <Text style={styles.dataText}>{status}</Text>
           <Text style={styles.dataLabel}>rotation</Text>          
           <Text style={styles.dataText}>g:{rotationGamma} a:{rotationAlpha} b:{rotationBeta}</Text>    
           <Text style={styles.dataLabel}>rotationRate</Text>          
           <Text style={styles.dataText}>g:{rotationRateGamma} a:{rotationRateAlpha} b:{rotationRateBeta}</Text>          
-          <Text style={styles.dataText}>{counter}</Text>      
         </View>
       </>
     ); 
 }
 
-function round(n) {
-  if (!n) {
-    return 0;
-  }
-
-  return Math.floor(n * 100) / 100;
-}
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
