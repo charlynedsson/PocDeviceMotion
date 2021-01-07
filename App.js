@@ -34,8 +34,8 @@ export default function App() {
   };
   
   let { beta, gamma } = data;
-  gamma = round(gamma);
-  beta = round(beta);
+  gamma = round(gamma ?? 0);
+  beta = round(beta ?? 0);
   
   return (
       <>           
