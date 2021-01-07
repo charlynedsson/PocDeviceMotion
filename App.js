@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, StatusBar } from 'react-native';
 import { DeviceMotion } from 'expo-sensors';
 
 export default function App() {
   const [data, setData] = React.useState({});
-  const [selectedDataType, setSelectedDataType] = React.useState("orientation");
+  const [selectedDataType, setSelectedDataType] = React.useState("rotationRate");
   
   React.useEffect(() => {
     //Subscribe Function
@@ -36,6 +36,7 @@ export default function App() {
   
   return (
       <>
+        <StatusBar />
         <View syle={styles.row}>
           <Button onPress={() => setSelectedDataType("rotation")} title="rotation"/>
           <Button onPress={() => setSelectedDataType("rotationRate")} title="rotationRate"/>
@@ -57,10 +58,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   row :{
-    flexDirection: 'row',
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',    
+    flexDirection: 'row',  
   },
   dataText: {
     fontSize: 21,
