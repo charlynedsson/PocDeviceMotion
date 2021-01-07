@@ -1,28 +1,20 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+import { DeviceMotion } from 'expo-sensors';
 
-export default class App extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      name: 'World!',
-    }
+export default function App() {
+  const [name, setName] = React.useState("There");
+  
+  const _handleOnPress = function () {
+    name === "There" ? setName("Again") : setName("There");    
   }
-
-  onClick = () => {
-    this.setState({
-      name: 'John!',
-    })
-  };
-
-  render() {
-    return (
+  
+  return (
       <View style={styles.container}>
-        <Text style={styles.nameText}>Hello {this.state.name}</Text>
-        <Button color='#4169E1' onPress={() => {this.onClick()}} title='Click me'> </Button>
+        <Text style={styles.nameText}>Hello {name}</Text>
+        <Button color='#4169E1' onPress={() => {_handleOnPress()}} title='Click me'> </Button>
       </View>
-    );
-  }
+    ); 
 }
 
 const styles = StyleSheet.create({
