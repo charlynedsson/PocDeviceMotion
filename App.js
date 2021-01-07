@@ -6,10 +6,11 @@ export default function App() {
   const [data, setData] = React.useState({});
   const [selectedDataType, setSelectedDataType] = React.useState("rotation");
   
-  React.useEffect(() => {
-    _unsubscribe();
+  React.useEffect(() => {    
     _subscribe();
-  }, [selectedDataType]);
+    
+    return _unsubscribe();
+  }, []);
   
   //SetInterval between listening of 2 DeviceMotion Action
   const _setInterval = () => {
@@ -32,15 +33,15 @@ export default function App() {
   
   return (
       <>
-        <StatusBar hidden = {true}/>
+        <StatusBar hidden = {true}/>        
+        <View style={styles.container}>      
+          <Text style={styles.dataText}>{selectedDataType}</Text>
+          <Text style={styles.dataText}>{JSON.stringify(data)}</Text>
+        </View>
         <View style={styles.row}>
           <Button onPress={() => setSelectedDataType("rotation")} title="rotation"/>
           <Button onPress={() => setSelectedDataType("rotationRate")} title="rotationRate"/>
           <Button onPress={() => setSelectedDataType("orientation")} title="orientation"/>
-        </View>
-        <View style={styles.container}>      
-          <Text style={styles.dataText}>{selectedDataType}</Text>
-          <Text style={styles.dataText}>{JSON.stringify(data)}</Text>
         </View>
       </>
     ); 
@@ -55,6 +56,8 @@ const styles = StyleSheet.create({
   },
   row :{
     flexDirection:'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   dataText: {
     fontSize: 21,
