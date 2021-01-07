@@ -3,17 +3,8 @@ import { StyleSheet, Text, View, Button, StatusBar } from 'react-native';
 import { DeviceMotion } from 'expo-sensors';
 
 export default function App() {
-  const [data, setData] = React.useState({});
-  const [selectedDataType, setSelectedDataType] = React.useState("rotationRate");
-  
-  React.useEffect(() => {
-    //Subscribe Function
-    _subscribe();
-    //Call Once when Screen unloads
-    return () => {
-      _unsubscribe(); //Unsubscribe Function
-    };
-  }, []);
+  const [data, setData] = React.useState(null);
+  const [selectedDataType, setSelectedDataType] = React.useState("orientation");
   
   React.useEffect(() => {
     _unsubscribe();
@@ -41,7 +32,7 @@ export default function App() {
   
   return (
       <>
-        <StatusBar barStyle = "dark-content" hidden = {false}/>
+        <StatusBar hidden = {true}/>
         <View syle={styles.row}>
           <Button onPress={() => setSelectedDataType("rotation")} title="rotation"/>
           <Button onPress={() => setSelectedDataType("rotationRate")} title="rotationRate"/>
