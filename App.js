@@ -33,7 +33,7 @@ export default function App() {
   return (
       <>
         <StatusBar hidden = {true}/>
-        <View syle={styles.row}>
+        <View style={styles.row}>
           <Button onPress={() => setSelectedDataType("rotation")} title="rotation"/>
           <Button onPress={() => setSelectedDataType("rotationRate")} title="rotationRate"/>
           <Button onPress={() => setSelectedDataType("orientation")} title="orientation"/>
