@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Button, StatusBar } from 'react-native';
 import { DeviceMotion } from 'expo-sensors';
 
 export default function App() {
-  const [data, setData] = React.useState({});  
+  const [data, setData] = React.useState({ "gamma": 0, "alpha": 0, "beta": 0 });  
   
   React.useEffect(() => {
     //Subscribe Function
