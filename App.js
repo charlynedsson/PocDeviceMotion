@@ -3,8 +3,7 @@ import { StyleSheet, Text, View, Button, StatusBar } from 'react-native';
 import { DeviceMotion } from 'expo-sensors';
 
 export default function App() {
-  const [data, setData] = React.useState({});
-  const [selectedDataType, setSelectedDataType] = React.useState("rotation");
+  const [data, setData] = React.useState({});  
   
   React.useEffect(() => {
     //Subscribe Function
