@@ -33,9 +33,9 @@ export default function App() {
     DeviceMotion.removeAllListeners();
   };
   
-  let { beta, gamma } = data;
-  gamma = round(gamma ?? 0);
-  beta = round(beta ?? 0);
+  let { beta, gamma } = data ?? { "gamma": 0, "alpha": 0, "beta": 0 };
+  gamma = round(gamma);
+  beta = round(beta);
   
   return (
       <>           
