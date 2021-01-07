@@ -16,13 +16,13 @@ export default function App() {
   
   //SetInterval between listening of 2 DeviceMotion Action
   const _setInterval = () => {
-    DeviceMotion.setUpdateInterval(77);
+    DeviceMotion.setUpdateInterval(500);
   };
 
   const _subscribe = () => {
     //Adding the Listener
     DeviceMotion.addListener((devicemotionData) => {
-      setData(devicemotionData.rotation);
+      setData(devicemotionData["rotationRate"]);
     });
     //Calling setInterval Function after adding the listener
     _setInterval();
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   nameText: {
-    fontSize: 50,
+    fontSize: 21,
     padding: 15,
   }
 });
