@@ -15,6 +15,11 @@ export default function App() {
     };
   }, []);
   
+  React.useEffect(() => {
+    _unsubscribe();
+    _subscribe();
+  }, [selectedDataType]);
+  
   //SetInterval between listening of 2 DeviceMotion Action
   const _setInterval = () => {
     DeviceMotion.setUpdateInterval(500);
@@ -22,7 +27,7 @@ export default function App() {
 
   const _subscribe = () => {
     //Adding the Listener
-    DeviceMotion.addListener((devicemotionData) => {
+    DeviceMotion.addListener((devicemotionData) => {      
       setData(devicemotionData[selectedDataType]);
     });
     //Calling setInterval Function after adding the listener
@@ -36,7 +41,7 @@ export default function App() {
   
   return (
       <>
-        <StatusBar />
+        <StatusBar barStyle = "dark-content" hidden = {false}/>
         <View syle={styles.row}>
           <Button onPress={() => setSelectedDataType("rotation")} title="rotation"/>
           <Button onPress={() => setSelectedDataType("rotationRate")} title="rotationRate"/>
@@ -58,7 +63,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   row :{
-    flexDirection: 'row',  
+    flexDirection:'row',
   },
   dataText: {
     fontSize: 21,
