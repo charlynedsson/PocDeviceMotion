@@ -16,7 +16,7 @@ export default function App() {
   
   //SetInterval between listening of 2 DeviceMotion Action
   const _setInterval = () => {
-    DeviceMotion.setUpdateInterval(500);
+    DeviceMotion.setUpdateInterval(77);
   };
 
   const _subscribe = () => {
@@ -32,6 +32,10 @@ export default function App() {
     //Removing all the listeners at end of screen unload
     DeviceMotion.removeAllListeners();
   };
+  
+  let { beta, gamma } = data;
+  gamma = round(gamma);
+  beta = round(beta);
   
   return (
       <>           
