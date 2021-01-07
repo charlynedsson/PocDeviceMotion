@@ -40,7 +40,7 @@ export default function App() {
           <Text style={styles.dataLabel}>rotation</Text>
           <Text style={styles.dataText}>{JSON.stringify(data.rotation)}</Text>
           <Text style={styles.dataLabel}>rotationRate</Text>
-          <Text style={styles.dataText}>{JSON.stringify(data.rotationRate)}</Text>
+          <Text style={styles.dataText}>a:{data.rotationRate.alpha.toPrecision(5))} b:{data.rotationRate.beta.toPrecision(5))} g:{data.rotationRate.gamma.toPrecision(5))}</Text>
           <Text style={styles.dataLabel}>orientation</Text>
           <Text style={styles.dataText}>{data.orientation}</Text>
         </View>
