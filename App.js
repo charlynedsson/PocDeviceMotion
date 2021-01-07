@@ -22,7 +22,7 @@ export default function App() {
   const _subscribe = () => {
     //Adding the Listener
     DeviceMotion.addListener((devicemotionData) => {      
-      const res = devicemotionData.rotation ?? { "gamma": 0, "alpha": 0, "beta": 0 };
+      const res = devicemotionData.rotationRate ?? { "gamma": 0, "alpha": 0, "beta": 0 };
       setData(res);
     });
     //Calling setInterval Function after adding the listener
@@ -43,7 +43,7 @@ export default function App() {
       <>           
         <View style={styles.container}>      
           <Text style={styles.dataLabel}>rotation</Text>          
-          <Text style={styles.dataText}>{gamma} {alpha} {beta}</Text>
+          <Text style={styles.dataText}>g:{gamma} a:{alpha} b:{beta}</Text>
         </View>
       </>
     ); 
