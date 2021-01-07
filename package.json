@@ -7,12 +7,15 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "expo": "^31.0.2",
-    "react": "16.5.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz"
+    "expo": "^39.0.2",
+    "expo-sensors": "^9.2.0",
+    "invariant": "^2.2.4",
+    "react": "16.13.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz"
   },
   "devDependencies": {
-    "babel-preset-expo": "^5.0.0"
+    "babel-preset-expo": "^5.0.0",
+    "expo-module-scripts": "^1.2.0"
   },
   "private": true
 }
